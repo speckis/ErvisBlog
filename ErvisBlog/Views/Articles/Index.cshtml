@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ErvisBlog.Models.Article>
+
+@{
+    ViewBag.Title = "Quotes";
+}
+
+<h2>Articles</h2>
+@if(Request.IsAuthenticated)
+{
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+}
+
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.TextBox("SearchString") <br /><br />
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">   
+ 
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Text)
+        </td>
+    @if (Request.IsAuthenticated) {
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    }
+    </tr>
+}
+
+</table>
